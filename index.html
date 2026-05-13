@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Prescript</title>
+    <style>
+        body {
+            background: black;
+            color: #00ff9c;
+            font-family: monospace;
+            text-align: center;
+            margin-top: 120px;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 18px;
+            border: 2px solid #00ff9c;
+            background: transparent;
+            color: #00ff9c;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #00ff9c;
+            color: black;
+        }
+
+        #output {
+            margin-top: 40px;
+            font-size: 22px;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>PRESCRIPT</h1>
+
+<button onclick="generate()">RECEIVE ORDER</button>
+
+<div id="output">Awaiting directive...</div>
+
+<script>
+const prescripts = [
+"Drink a glass of water.",
+"Stand up and stretch.",
+"Send a kind message.",
+"Clean one small thing.",
+"Take 5 deep breaths.",
+"Write one goal.",
+"Put your phone away for 10 minutes.",
+"Compliment someone.",
+"Fix your posture.",
+"Think of something you're grateful for."
+];
+
+function generate() {
+    const random = prescripts[Math.floor(Math.random() * prescripts.length)];
+    document.getElementById("output").innerText = random;
+}
+</script>
+
+</body>
+</html>
