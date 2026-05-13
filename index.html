@@ -2,39 +2,58 @@
 <html>
 <head>
     <title>Prescript</title>
+
     <style>
         body {
-            background: black;
-            color: #00ff9c;
+            background: #050510;
+            color: #00c3ff;
             font-family: monospace;
             text-align: center;
             margin-top: 120px;
+            overflow: hidden;
+        }
+
+        h1 {
+            letter-spacing: 5px;
+            margin-bottom: 40px;
         }
 
         button {
-            padding: 15px 30px;
+            padding: 15px 35px;
             font-size: 18px;
-            border: 2px solid #00ff9c;
+            border: 2px solid #00c3ff;
             background: transparent;
-            color: #00ff9c;
+            color: #00c3ff;
             cursor: pointer;
+            transition: 0.2s;
         }
 
         button:hover {
-            background: #00ff9c;
+            background: #00c3ff;
             color: black;
         }
 
         #output {
-            margin-top: 40px;
-            font-size: 22px;
+            margin-top: 60px;
+            font-size: 26px;
+            min-height: 50px;
+        }
+
+        .glitch {
+            animation: flicker 0.05s infinite;
+        }
+
+        @keyframes flicker {
+            0% { opacity: 1; }
+            50% { opacity: 0.6; }
+            100% { opacity: 1; }
         }
     </style>
 </head>
 
 <body>
 
-<h1>PRESCRIPT</h1>
+<h1>PRESCRIPT TERMINAL</h1>
 
 <button onclick="generate()">RECEIVE ORDER</button>
 
@@ -51,12 +70,45 @@ const prescripts = [
 "Put your phone away for 10 minutes.",
 "Compliment someone.",
 "Fix your posture.",
-"Think of something you're grateful for."
+"Think of something you're grateful for.",
+"Organize your space.",
+"Take a short break.",
+"Focus on one task.",
+"Help someone nearby.",
+"Reset your mindset."
 ];
+
+const glitchChars = "!@#$%^&*()_+=-[]{}|;:,.<>?/0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+function glitchText(finalText) {
+    const output = document.getElementById("output");
+    let iterations = 0;
+
+    const interval = setInterval(() => {
+        let display = "";
+
+        for (let i = 0; i < finalText.length; i++) {
+            if (i < iterations) {
+                display += finalText[i];
+            } else {
+                display += glitchChars[Math.floor(Math.random() * glitchChars.length)];
+            }
+        }
+
+        output.innerText = display;
+
+        if (iterations >= finalText.length) {
+            clearInterval(interval);
+            output.innerText = finalText;
+        }
+
+        iterations += 0.5;
+    }, 30);
+}
 
 function generate() {
     const random = prescripts[Math.floor(Math.random() * prescripts.length)];
-    document.getElementById("output").innerText = random;
+    glitchText(random);
 }
 </script>
 
