@@ -56,28 +56,27 @@ button:hover {
 <script>
 
 // =========================
-// PRESCRIPTS (HARD MODE)
+// PRESCRIPTS (UPGRADED)
 // =========================
 const prescripts = [
-"Perform 5 push-ups without stopping 5 times today.",
+"Perform 20 push-ups without stopping.",
 "Hold a plank for 60 seconds.",
-"Do 30 jumping jacks at full effort.",
-"Hold a wall sit for 45 seconds.",
-"Walk outside for 50 minutes without your phone.",
-"Do 25 squats with control.",
-"Run in place for 1 full minute.",
-"Stretch your entire body for 2 minutes.",
-"Do 10 slow push-ups with perfect form.",
-"Climb stairs continuously for 2 minutes.",
+"Do 40 jumping jacks at full effort.",
+"Hold a wall sit for 60 seconds.",
+"Walk outside for 10 minutes without your phone.",
+"Do 30 squats with control.",
+"Run in place for 90 seconds.",
+"Stretch your entire body for 3 minutes.",
+"Perform 10 slow push-ups with perfect form.",
+"Climb stairs continuously for 3 minutes.",
 
 "Drink two full glasses of water immediately.",
 "Take a cold water splash to your face.",
 "Step outside regardless of comfort.",
-"Stand upright with perfect posture for 2 minutes.",
+"Stand upright with perfect posture for 3 minutes.",
 "Reset your physical state completely.",
-"Move your body continuously for 2 minutes.",
-"Take control of your breathing under tension.",
-"Stay standing instead of sitting for the next 2 minutes.",
+"Move your body continuously for 3 minutes.",
+"Stay standing instead of sitting for 5 minutes.",
 
 "Clean a space completely—not partially.",
 "Organize your entire desk with intention.",
@@ -86,73 +85,57 @@ const prescripts = [
 "Reset your environment to a higher standard.",
 "Take responsibility for your surroundings.",
 
-"Send a genuine message you’ve been avoiding.",
+"Send a message you’ve been avoiding.",
 "Compliment someone without hesitation.",
 "Start a conversation instead of waiting.",
 "Check on someone you’ve neglected.",
 "Say something honest instead of comfortable.",
 "Offer help even if it feels awkward.",
 "Listen fully without interrupting.",
-"Be patient when you feel irritated.",
 
 "Start the task you’ve been putting off the most.",
-"Work for 10 minutes without distraction.",
+"Work for 15 minutes without distraction.",
 "Finish something you previously abandoned.",
 "Write down exactly what you’ve been avoiding.",
 "Break a difficult task into steps and begin.",
 "Commit to action instead of thinking.",
-"Remove all distractions for the next 10 minutes.",
-"Do an arts and crafts project.",
+"Remove all distractions for the next 15 minutes.",
 
-"Stop scrolling immediately and do nothing for 30 seconds.",
+"Stop scrolling immediately and do nothing for 60 seconds.",
 "Sit in silence without stimulation.",
 "Hold your focus on one thought.",
 "Interrupt a negative thought pattern.",
-"Choose discipline over comfort right now.",
+"Choose discipline over comfort.",
 "Act even if you don’t feel ready.",
 "Do not negotiate with distraction.",
 "Control your next action deliberately.",
 
+"Stand up immediately.",
+"Fix your posture.",
+"Move now.",
+"Act without delay.",
+"Maintain discipline.",
+"Proceed."
 ];
 
 // =========================
 // COMPLETION RESPONSES
 // =========================
 const compliments = [
+"Directive fulfilled. Alignment maintained.",
+"Compliance recorded. Continue.",
+"Momentum acknowledged.",
+"Execution accepted.",
+"Discipline strengthens.",
+"The chain remains unbroken.",
+"Another step toward refinement.",
+
 "‘I can do all things through Him who strengthens me.’ – Philippians 4:13",
 "‘Do not grow weary in doing good.’ – Galatians 6:9",
 "‘Be strong and courageous.’ – Joshua 1:9",
-"‘The Lord gives strength to His people.’ – Psalm 29:11",
+"‘The Lord gives strength.’ – Psalm 29:11",
 "‘Commit your work to the Lord.’ – Proverbs 16:3",
-"‘With God all things are possible.’ – Matthew 19:26",
-"‘The light shines in the darkness.’ – John 1:5",
-"‘The Lord is my strength and my shield.’ – Psalm 28:7",
-"‘Cast your burden on the Lord.’ – Psalm 55:22",
-"‘He gives power to the weak.’ – Isaiah 40:29",
-"‘Walk by faith, not by sight.’ – 2 Corinthians 5:7",
-"‘Let all that you do be done in love.’ – 1 Corinthians 16:14",
-"‘The joy of the Lord is your strength.’ – Nehemiah 8:10",
-"‘Be faithful in small things.’ – Luke 16:10",
-"‘Those who hope in the Lord will renew their strength.’ – Isaiah 40:31",
-"‘Set your minds on things above.’ – Colossians 3:2",
-"‘Run with perseverance the race set before you.’ – Hebrews 12:1",
-"‘God is within her, she will not fall.’ – Psalm 46:5",
-"‘The Lord will fight for you.’ – Exodus 14:14",
-"‘My grace is sufficient for you.’ – 2 Corinthians 12:9",
-"‘The Lord is my light and my salvation.’ – Psalm 27:1",
-"‘Trust in the Lord with all your heart.’ – Proverbs 3:5",
-"‘Be still, and know that I am God.’ – Psalm 46:10",
-"‘The righteous are bold as a lion.’ – Proverbs 28:1",
-"‘Whatever you do, work at it with all your heart.’ – Colossians 3:23",
-"‘Blessed are those who persevere.’ – James 1:12",
-"‘Seek and you will find.’ – Matthew 7:7",
-"‘Perfect love drives out fear.’ – 1 John 4:18",
-"‘The Lord is near to the brokenhearted.’ – Psalm 34:18",
-"‘Stand firm in the faith.’ – 1 Corinthians 16:13",
-"‘Let your light shine.’ – Matthew 5:16",
-"‘Ask and it will be given to you.’ – Matthew 7:7",
-"‘The Lord upholds all who fall.’ – Psalm 145:14",
-"‘Fear not, for I am with you.’ – Isaiah 41:10"
+"‘With God all things are possible.’ – Matthew 19:26"
 ];
 
 // =========================
@@ -196,7 +179,7 @@ function updateStats() {
 }
 
 // =========================
-// GLITCH TEXT EFFECT
+// GLITCH TEXT
 // =========================
 const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
@@ -220,7 +203,7 @@ function glitchText(text) {
 }
 
 // =========================
-// GENERATE TASK
+// GENERATE
 // =========================
 function generate() {
     const task = prescripts[Math.floor(Math.random()*prescripts.length)];
@@ -233,7 +216,7 @@ function generate() {
 }
 
 // =========================
-// COMPLETE TASK
+// COMPLETE
 // =========================
 function complete() {
     if (!lastTaskTime) return;
@@ -261,9 +244,7 @@ function complete() {
     updateStats();
 }
 
-// =========================
 // INIT
-// =========================
 updateStats();
 
 </script>
