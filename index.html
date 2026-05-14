@@ -5,15 +5,22 @@
 
 <style>
 body {
-    background: #050510;
+    background: #03030a;
     color: #00c3ff;
     font-family: monospace;
+    margin: 0;
+}
+
+/* MAIN AREA */
+#main {
+    margin-left: 220px;
+    margin-right: 220px;
     text-align: center;
     margin-top: 80px;
 }
 
 h1 {
-    letter-spacing: 5px;
+    letter-spacing: 6px;
 }
 
 button {
@@ -36,47 +43,129 @@ button:hover {
     min-height: 50px;
 }
 
-#stats {
-    margin-top: 30px;
-    font-size: 18px;
+/* PANELS */
+.panel {
+    position: fixed;
+    top: 0;
+    width: 200px;
+    height: 100%;
+    padding: 15px;
+    border-right: 1px solid #00c3ff;
 }
+
+#leftPanel { left: 0; }
+#rightPanel {
+    right: 0;
+    border-left: 1px solid #00c3ff;
+    border-right: none;
+}
+
+/* PROGRESS BARS */
+.bar {
+    width: 100%;
+    height: 10px;
+    border: 1px solid #00c3ff;
+    margin-bottom: 15px;
+}
+
+.fill {
+    height: 100%;
+    background: #00c3ff;
+    width: 0%;
+}
+
+/* ADS */
+.ad {
+    margin-top: 30px;
+    font-size: 13px;
+    opacity: 0.8;
+    border-top: 1px solid #00c3ff;
+    padding-top: 10px;
+}
+
 </style>
 </head>
 
 <body>
 
-<h1>PRESCRIPT TERMINAL</h1>
+<!-- LEFT PANEL -->
+<div id="leftPanel" class="panel">
+    <div>STREAK</div>
+    <div class="bar"><div id="streakBar" class="fill"></div></div>
 
-<button onclick="generate()">RECEIVE ORDER</button>
-<button onclick="complete()">TASK COMPLETED</button>
+    <div>TOTAL</div>
+    <div class="bar"><div id="totalBar" class="fill"></div></div>
 
-<div id="output">Awaiting directive...</div>
-<div id="stats"></div>
+    <div class="ad" id="leftAd">Loading ad...</div>
+</div>
+
+<!-- RIGHT PANEL -->
+<div id="rightPanel" class="panel">
+    <div>STATUS</div>
+    <div id="stats"></div>
+
+    <div class="ad" id="rightAd">Loading ad...</div>
+</div>
+
+<!-- MAIN -->
+<div id="main">
+    <h1>PRESCRIPT TERMINAL</h1>
+
+    <button onclick="generate()">RECEIVE ORDER</button>
+    <button onclick="complete()">TASK COMPLETED</button>
+
+    <div id="output">Awaiting directive...</div>
+</div>
 
 <script>
 
 // =========================
-// PRESCRIPTS (UPGRADED)
+// ADS
+// =========================
+const ads = [
+"Upgrade to Premium Compliance™",
+"Don't feel pressured by others to do stuff, thats our job!",
+"Your inactivity has been logged. Turn off devices and save energy, no need to worry about us we will always be here waiting :D",
+"Lays chips. half the bag is air, and the rest chips.",
+"The system remembers. I think..",
+"sorry if the ads are annoying we need money.",
+"Users like you completed more today!",
+"Your discipline is being evaluated."
+];
+
+function rotateAds() {
+    document.getElementById("leftAd").innerText =
+        ads[Math.floor(Math.random()*ads.length)];
+
+    document.getElementById("rightAd").innerText =
+        ads[Math.floor(Math.random()*ads.length)];
+}
+setInterval(rotateAds, 4000);
+rotateAds();
+
+// =========================
+// PRESCRIPTS
 // =========================
 const prescripts = [
 "Perform 20 push-ups without stopping.",
 "Hold a plank for 60 seconds.",
-"Do 40 jumping jacks at full effort.",
-"Hold a wall sit for 60 seconds.",
-"Walk outside for 10 minutes without your phone.",
-"Do 30 squats with control.",
-"Run in place for 90 seconds.",
-"Stretch your entire body for 3 minutes.",
-"Perform 10 slow push-ups with perfect form.",
-"Climb stairs continuously for 3 minutes.",
+"Do 30 jumping jacks at full effort.",
+"Hold a wall sit for 45 seconds.",
+"Walk outside for 5 minutes without your phone.",
+"Do 25 squats with control.",
+"Run in place for 1 full minute.",
+"Stretch your entire body for 2 minutes.",
+"Do 10 slow push-ups with perfect form.",
+"Climb stairs continuously for 2 minutes.",
 
 "Drink two full glasses of water immediately.",
 "Take a cold water splash to your face.",
 "Step outside regardless of comfort.",
-"Stand upright with perfect posture for 3 minutes.",
+"Stand upright with perfect posture for 2 minutes.",
 "Reset your physical state completely.",
-"Move your body continuously for 3 minutes.",
-"Stay standing instead of sitting for 5 minutes.",
+"Move your body continuously for 2 minutes.",
+"Take control of your breathing under tension.",
+"Stay standing instead of sitting for the next 2 minutes.",
 
 "Clean a space completely—not partially.",
 "Organize your entire desk with intention.",
@@ -85,57 +174,82 @@ const prescripts = [
 "Reset your environment to a higher standard.",
 "Take responsibility for your surroundings.",
 
-"Send a message you’ve been avoiding.",
+"Send a genuine message you’ve been avoiding.",
 "Compliment someone without hesitation.",
 "Start a conversation instead of waiting.",
 "Check on someone you’ve neglected.",
 "Say something honest instead of comfortable.",
 "Offer help even if it feels awkward.",
 "Listen fully without interrupting.",
+"Be patient when you feel irritated.",
 
 "Start the task you’ve been putting off the most.",
-"Work for 15 minutes without distraction.",
+"Work for 10 minutes without distraction.",
 "Finish something you previously abandoned.",
 "Write down exactly what you’ve been avoiding.",
 "Break a difficult task into steps and begin.",
 "Commit to action instead of thinking.",
-"Remove all distractions for the next 15 minutes.",
+"Remove all distractions for the next 10 minutes.",
+"Take full control of your time right now.",
 
-"Stop scrolling immediately and do nothing for 60 seconds.",
+"Stop scrolling immediately and Meditate outside.",
 "Sit in silence without stimulation.",
 "Hold your focus on one thought.",
 "Interrupt a negative thought pattern.",
-"Choose discipline over comfort.",
-"Act even if you don’t feel ready.",
+"Choose discipline over comfort right now.",
+"Tell someone close to you how much they mean to you.",
 "Do not negotiate with distraction.",
-"Control your next action deliberately.",
+"Try to ignore bad habits as much as you can for two hours.",
 
 "Stand up immediately.",
-"Fix your posture.",
-"Move now.",
-"Act without delay.",
+"Learn to fix your posture.",
+"Get off screens for 1 hour.",
+"Act without delay when asked to do something.",
+"Continue forward.",
 "Maintain discipline.",
-"Proceed."
+"Do not hesitate.",
+"eat any kind of vegetable with a meal."
+];
 ];
 
 // =========================
 // COMPLETION RESPONSES
 // =========================
 const compliments = [
-"Directive fulfilled. Alignment maintained.",
-"Compliance recorded. Continue.",
-"Momentum acknowledged.",
-"Execution accepted.",
-"Discipline strengthens.",
-"The chain remains unbroken.",
-"Another step toward refinement.",
-
 "‘I can do all things through Him who strengthens me.’ – Philippians 4:13",
 "‘Do not grow weary in doing good.’ – Galatians 6:9",
 "‘Be strong and courageous.’ – Joshua 1:9",
-"‘The Lord gives strength.’ – Psalm 29:11",
+"‘The Lord gives strength to His people.’ – Psalm 29:11",
 "‘Commit your work to the Lord.’ – Proverbs 16:3",
-"‘With God all things are possible.’ – Matthew 19:26"
+"‘With God all things are possible.’ – Matthew 19:26",
+"‘The light shines in the darkness.’ – John 1:5",
+"‘The Lord is my strength and my shield.’ – Psalm 28:7",
+"‘Cast your burden on the Lord.’ – Psalm 55:22",
+"‘He gives power to the weak.’ – Isaiah 40:29",
+"‘Walk by faith, not by sight.’ – 2 Corinthians 5:7",
+"‘Let all that you do be done in love.’ – 1 Corinthians 16:14",
+"‘The joy of the Lord is your strength.’ – Nehemiah 8:10",
+"‘Be faithful in small things.’ – Luke 16:10",
+"‘Those who hope in the Lord will renew their strength.’ – Isaiah 40:31",
+"‘Set your minds on things above.’ – Colossians 3:2",
+"‘Run with perseverance the race set before you.’ – Hebrews 12:1",
+"‘God is within her, she will not fall.’ – Psalm 46:5",
+"‘The Lord will fight for you.’ – Exodus 14:14",
+"‘My grace is sufficient for you.’ – 2 Corinthians 12:9",
+"‘The Lord is my light and my salvation.’ – Psalm 27:1",
+"‘Trust in the Lord with all your heart.’ – Proverbs 3:5",
+"‘Be still, and know that I am God.’ – Psalm 46:10",
+"‘The righteous are bold as a lion.’ – Proverbs 28:1",
+"‘Whatever you do, work at it with all your heart.’ – Colossians 3:23",
+"‘Blessed are those who persevere.’ – James 1:12",
+"‘Seek and you will find.’ – Matthew 7:7",
+"‘Perfect love drives out fear.’ – 1 John 4:18",
+"‘The Lord is near to the brokenhearted.’ – Psalm 34:18",
+"‘Stand firm in the faith.’ – 1 Corinthians 16:13",
+"‘Let your light shine.’ – Matthew 5:16",
+"‘Ask and it will be given to you.’ – Matthew 7:7",
+"‘The Lord upholds all who fall.’ – Psalm 145:14",
+"‘Fear not, for I am with you.’ – Isaiah 41:10"
 ];
 
 // =========================
@@ -146,22 +260,10 @@ let total = parseInt(localStorage.getItem("total")) || 0;
 let lastTaskTime = parseInt(localStorage.getItem("taskTime")) || 0;
 
 // =========================
-// SOUND SYSTEM
-// =========================
-function playSound(freq) {
-    const ctx = new (window.AudioContext || window.webkitAudioContext)();
-    const osc = ctx.createOscillator();
-    osc.frequency.setValueAtTime(freq, ctx.currentTime);
-    osc.connect(ctx.destination);
-    osc.start();
-    setTimeout(() => osc.stop(), 120);
-}
-
-// =========================
-// RANK SYSTEM
+// RANK
 // =========================
 function getRank(total) {
-    if (total >= 50) return "ARCHON";
+    if (total >= 50) return "STRONG WILLED";
     if (total >= 30) return "EXECUTOR";
     if (total >= 15) return "DISCIPLE";
     if (total >= 5) return "INITIATE";
@@ -174,8 +276,14 @@ function getRank(total) {
 function updateStats() {
     document.getElementById("stats").innerText =
         "Streak: " + streak +
-        " | Total: " + total +
-        " | Rank: " + getRank(total);
+        "\nTotal: " + total +
+        "\nRank: " + getRank(total);
+
+    document.getElementById("streakBar").style.width =
+        Math.min(streak * 10, 100) + "%";
+
+    document.getElementById("totalBar").style.width =
+        Math.min(total * 2, 100) + "%";
 }
 
 // =========================
@@ -211,8 +319,6 @@ function generate() {
 
     lastTaskTime = Date.now();
     localStorage.setItem("taskTime", lastTaskTime);
-
-    playSound(400);
 }
 
 // =========================
@@ -227,15 +333,12 @@ function complete() {
     if (hours > 12) {
         glitchText("FAILURE TO COMPLY.");
         streak = 0;
-        playSound(100);
     } else {
         const msg = compliments[Math.floor(Math.random()*compliments.length)];
         glitchText(msg);
 
         streak++;
         total++;
-
-        playSound(800);
     }
 
     localStorage.setItem("streak", streak);
