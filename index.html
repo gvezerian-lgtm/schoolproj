@@ -1,54 +1,46 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Prescript</title>
+<title>Prescript Terminal</title>
 
-    <style>
-        body {
-            background: #050510;
-            color: #00c3ff;
-            font-family: monospace;
-            text-align: center;
-            margin-top: 120px;
-            overflow: hidden;
-        }
+<style>
+body {
+    background: #050510;
+    color: #00c3ff;
+    font-family: monospace;
+    text-align: center;
+    margin-top: 80px;
+}
 
-        h1 {
-            letter-spacing: 5px;
-            margin-bottom: 40px;
-        }
+h1 {
+    letter-spacing: 5px;
+}
 
-        button {
-            padding: 15px 35px;
-            font-size: 18px;
-            border: 2px solid #00c3ff;
-            background: transparent;
-            color: #00c3ff;
-            cursor: pointer;
-            transition: 0.2s;
-        }
+button {
+    padding: 12px 25px;
+    border: 2px solid #00c3ff;
+    background: transparent;
+    color: #00c3ff;
+    cursor: pointer;
+    margin: 10px;
+}
 
-        button:hover {
-            background: #00c3ff;
-            color: black;
-        }
+button:hover {
+    background: #00c3ff;
+    color: black;
+}
 
-        #output {
-            margin-top: 60px;
-            font-size: 26px;
-            min-height: 50px;
-        }
+#output {
+    margin-top: 40px;
+    font-size: 24px;
+    min-height: 50px;
+}
 
-        .glitch {
-            animation: flicker 0.05s infinite;
-        }
-
-        @keyframes flicker {
-            0% { opacity: 1; }
-            50% { opacity: 0.6; }
-            100% { opacity: 1; }
-        }
-    </style>
+#stats {
+    margin-top: 30px;
+    font-size: 18px;
+}
+</style>
 </head>
 
 <body>
@@ -56,60 +48,224 @@
 <h1>PRESCRIPT TERMINAL</h1>
 
 <button onclick="generate()">RECEIVE ORDER</button>
+<button onclick="complete()">TASK COMPLETED</button>
 
 <div id="output">Awaiting directive...</div>
+<div id="stats"></div>
 
 <script>
+
+// =========================
+// PRESCRIPTS (HARD MODE)
+// =========================
 const prescripts = [
-"Drink a glass of water.",
-"Stand up and stretch.",
-"Send a kind message.",
-"Clean one small thing.",
-"Take 5 deep breaths.",
-"Write one goal.",
-"Put your phone away for 10 minutes.",
-"Compliment someone.",
-"Fix your posture.",
-"Think of something you're grateful for.",
-"Organize your space.",
-"Take a short break.",
-"Focus on one task.",
-"Help someone nearby.",
-"Reset your mindset."
+"Perform 5 push-ups without stopping 5 times today.",
+"Hold a plank for 60 seconds.",
+"Do 30 jumping jacks at full effort.",
+"Hold a wall sit for 45 seconds.",
+"Walk outside for 50 minutes without your phone.",
+"Do 25 squats with control.",
+"Run in place for 1 full minute.",
+"Stretch your entire body for 2 minutes.",
+"Do 10 slow push-ups with perfect form.",
+"Climb stairs continuously for 2 minutes.",
+
+"Drink two full glasses of water immediately.",
+"Take a cold water splash to your face.",
+"Step outside regardless of comfort.",
+"Stand upright with perfect posture for 2 minutes.",
+"Reset your physical state completely.",
+"Move your body continuously for 2 minutes.",
+"Take control of your breathing under tension.",
+"Stay standing instead of sitting for the next 2 minutes.",
+
+"Clean a space completely—not partially.",
+"Organize your entire desk with intention.",
+"Remove 10 unnecessary items from your space.",
+"Fix something you’ve been ignoring.",
+"Reset your environment to a higher standard.",
+"Take responsibility for your surroundings.",
+
+"Send a genuine message you’ve been avoiding.",
+"Compliment someone without hesitation.",
+"Start a conversation instead of waiting.",
+"Check on someone you’ve neglected.",
+"Say something honest instead of comfortable.",
+"Offer help even if it feels awkward.",
+"Listen fully without interrupting.",
+"Be patient when you feel irritated.",
+
+"Start the task you’ve been putting off the most.",
+"Work for 10 minutes without distraction.",
+"Finish something you previously abandoned.",
+"Write down exactly what you’ve been avoiding.",
+"Break a difficult task into steps and begin.",
+"Commit to action instead of thinking.",
+"Remove all distractions for the next 10 minutes.",
+"Do an arts and crafts project.",
+
+"Stop scrolling immediately and do nothing for 30 seconds.",
+"Sit in silence without stimulation.",
+"Hold your focus on one thought.",
+"Interrupt a negative thought pattern.",
+"Choose discipline over comfort right now.",
+"Act even if you don’t feel ready.",
+"Do not negotiate with distraction.",
+"Control your next action deliberately.",
+
 ];
 
-const glitchChars = "!@#$%^&*()_+=-[]{}|;:,.<>?/0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+// =========================
+// COMPLETION RESPONSES
+// =========================
+const compliments = [
+"‘I can do all things through Him who strengthens me.’ – Philippians 4:13",
+"‘Do not grow weary in doing good.’ – Galatians 6:9",
+"‘Be strong and courageous.’ – Joshua 1:9",
+"‘The Lord gives strength to His people.’ – Psalm 29:11",
+"‘Commit your work to the Lord.’ – Proverbs 16:3",
+"‘With God all things are possible.’ – Matthew 19:26",
+"‘The light shines in the darkness.’ – John 1:5",
+"‘The Lord is my strength and my shield.’ – Psalm 28:7",
+"‘Cast your burden on the Lord.’ – Psalm 55:22",
+"‘He gives power to the weak.’ – Isaiah 40:29",
+"‘Walk by faith, not by sight.’ – 2 Corinthians 5:7",
+"‘Let all that you do be done in love.’ – 1 Corinthians 16:14",
+"‘The joy of the Lord is your strength.’ – Nehemiah 8:10",
+"‘Be faithful in small things.’ – Luke 16:10",
+"‘Those who hope in the Lord will renew their strength.’ – Isaiah 40:31",
+"‘Set your minds on things above.’ – Colossians 3:2",
+"‘Run with perseverance the race set before you.’ – Hebrews 12:1",
+"‘God is within her, she will not fall.’ – Psalm 46:5",
+"‘The Lord will fight for you.’ – Exodus 14:14",
+"‘My grace is sufficient for you.’ – 2 Corinthians 12:9",
+"‘The Lord is my light and my salvation.’ – Psalm 27:1",
+"‘Trust in the Lord with all your heart.’ – Proverbs 3:5",
+"‘Be still, and know that I am God.’ – Psalm 46:10",
+"‘The righteous are bold as a lion.’ – Proverbs 28:1",
+"‘Whatever you do, work at it with all your heart.’ – Colossians 3:23",
+"‘Blessed are those who persevere.’ – James 1:12",
+"‘Seek and you will find.’ – Matthew 7:7",
+"‘Perfect love drives out fear.’ – 1 John 4:18",
+"‘The Lord is near to the brokenhearted.’ – Psalm 34:18",
+"‘Stand firm in the faith.’ – 1 Corinthians 16:13",
+"‘Let your light shine.’ – Matthew 5:16",
+"‘Ask and it will be given to you.’ – Matthew 7:7",
+"‘The Lord upholds all who fall.’ – Psalm 145:14",
+"‘Fear not, for I am with you.’ – Isaiah 41:10"
+];
 
-function glitchText(finalText) {
-    const output = document.getElementById("output");
-    let iterations = 0;
+// =========================
+// STORAGE
+// =========================
+let streak = parseInt(localStorage.getItem("streak")) || 0;
+let total = parseInt(localStorage.getItem("total")) || 0;
+let lastTaskTime = parseInt(localStorage.getItem("taskTime")) || 0;
 
-    const interval = setInterval(() => {
-        let display = "";
+// =========================
+// SOUND SYSTEM
+// =========================
+function playSound(freq) {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const osc = ctx.createOscillator();
+    osc.frequency.setValueAtTime(freq, ctx.currentTime);
+    osc.connect(ctx.destination);
+    osc.start();
+    setTimeout(() => osc.stop(), 120);
+}
 
-        for (let i = 0; i < finalText.length; i++) {
-            if (i < iterations) {
-                display += finalText[i];
-            } else {
-                display += glitchChars[Math.floor(Math.random() * glitchChars.length)];
-            }
+// =========================
+// RANK SYSTEM
+// =========================
+function getRank(total) {
+    if (total >= 50) return "ARCHON";
+    if (total >= 30) return "EXECUTOR";
+    if (total >= 15) return "DISCIPLE";
+    if (total >= 5) return "INITIATE";
+    return "UNASSIGNED";
+}
+
+// =========================
+// UPDATE UI
+// =========================
+function updateStats() {
+    document.getElementById("stats").innerText =
+        "Streak: " + streak +
+        " | Total: " + total +
+        " | Rank: " + getRank(total);
+}
+
+// =========================
+// GLITCH TEXT EFFECT
+// =========================
+const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
+function glitchText(text) {
+    let output = document.getElementById("output");
+    let i = 0;
+
+    let interval = setInterval(() => {
+        let str = "";
+        for (let j = 0; j < text.length; j++) {
+            str += j < i ? text[j] : chars[Math.floor(Math.random()*chars.length)];
         }
+        output.innerText = str;
 
-        output.innerText = display;
-
-        if (iterations >= finalText.length) {
+        if (i >= text.length) {
             clearInterval(interval);
-            output.innerText = finalText;
+            output.innerText = text;
         }
-
-        iterations += 0.5;
-    }, 30);
+        i += 0.5;
+    }, 25);
 }
 
+// =========================
+// GENERATE TASK
+// =========================
 function generate() {
-    const random = prescripts[Math.floor(Math.random() * prescripts.length)];
-    glitchText(random);
+    const task = prescripts[Math.floor(Math.random()*prescripts.length)];
+    glitchText(task);
+
+    lastTaskTime = Date.now();
+    localStorage.setItem("taskTime", lastTaskTime);
+
+    playSound(400);
 }
+
+// =========================
+// COMPLETE TASK
+// =========================
+function complete() {
+    if (!lastTaskTime) return;
+
+    let now = Date.now();
+    let hours = (now - lastTaskTime) / (1000 * 60 * 60);
+
+    if (hours > 12) {
+        glitchText("FAILURE TO COMPLY.");
+        streak = 0;
+        playSound(100);
+    } else {
+        const msg = compliments[Math.floor(Math.random()*compliments.length)];
+        glitchText(msg);
+
+        streak++;
+        total++;
+
+        playSound(800);
+    }
+
+    localStorage.setItem("streak", streak);
+    localStorage.setItem("total", total);
+
+    updateStats();
+}
+
+// =========================
+// INIT
+// =========================
+updateStats();
+
 </script>
 
 </body>
